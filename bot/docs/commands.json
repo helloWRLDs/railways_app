@@ -1,0 +1,22 @@
+[
+    {
+        "command": "start",
+        "description": "Запуск бота"
+    },
+    {
+        "command": "ref",
+        "description": "Получить ссылку на бота"
+    },
+    {
+        "command": "help",
+        "description": "Помощь"
+    },
+    {
+        "command": "menu",
+        "description": "Открыть меню"
+    },
+    {
+        "command": "poll",
+        "description": "Пройти опрос"
+    }
+]

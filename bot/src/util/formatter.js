@@ -1,0 +1,1 @@
+export const escapeMarkdown = (text) => text.replace(/[\~>#\-=|{}.!]/g, '\\$&')
