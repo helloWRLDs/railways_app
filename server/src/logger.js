@@ -8,4 +8,4 @@ const logger = require('pino')({
     }
 })
 
-module.exports = (logger)
+module.exports = logger;
