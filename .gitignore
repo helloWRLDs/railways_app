@@ -3,3 +3,4 @@ dist
 bot_d
 
 .env
+test.js

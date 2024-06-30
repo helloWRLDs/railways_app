@@ -23,7 +23,7 @@ const getUserById = async(id) => {
         })
         user = response.dataValues ?? response.dataValues
     } catch(e) {
-        console.log(e)
+        // console.log(e)
     }
     return user
 }

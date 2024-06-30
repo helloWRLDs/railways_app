@@ -1,5 +1,6 @@
 version: '3.8'
 
+
 services:
   db:
     image: postgres:16.3
@@ -22,8 +23,13 @@ services:
     build: 
       context: ./server
       dockerfile: Dockerfile
+    environment:
+      - DB_HOST=postgres
+      - DB_DATABASE=railways
+      - DB_USERNAME=admin
+      - DB_PASSWORD=admin
     ports:
-      - "8080:8080"
+      - 8080:8081
     networks:
       - webnet
   
