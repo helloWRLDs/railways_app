@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int  @default(autoincrement()) @id
+  first_name        String
+  last_name         String
+  email             String  @unique
+  chat_id           String?
+  username          String?
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @default(now())
+  question_response QuestionResponse[] 
+}
+
+model Question {
+  id          Int  @id @default(autoincrement())
+  question    String
+  answer      Answer[]
+  response    QuestionResponse[]
+}
+
+model Answer {
+  id            Int   @default(autoincrement())    @id
+  answer        String
+  question_id   Int
+  question      Question @relation(fields: [question_id], references: [id])
+  response      QuestionResponse[]
+}
+
+model QuestionResponse {
+  id            Int      @default(autoincrement())   @id 
+  user_id       Int
+  user          User?       @relation(fields: [user_id], references: [id])
+  question_id   Int
+  question      Question?   @relation(fields: [question_id], references: [id])
+  answer_id     Int 
+  answer        Answer      @relation(fields: [answer_id], references: [id])
+  completed_at  DateTime    @default(now())
+}

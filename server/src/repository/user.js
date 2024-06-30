@@ -1,34 +1,77 @@
-const { where } = require('sequelize')
 const logger = require('../logger')
-const db = require('../models/index')
+const { PrismaClient } = require('@prisma/client')
 
-const listUsers = async() => {
-    const users = []
+const client = new PrismaClient()
+
+
+const insertUser = async(newUser) => {
     try {
-        const response = await db.User.findAll()
-        response.forEach(elem => users.push(elem.dataValues))
+        const res = await client.user.create({
+            data: {
+                first_name: newUser.first_name,
+                last_name: newUser.last_name,
+                email: newUser.email,
+            },
+        })
+        return res.id
     } catch(e) {
-        logger.error(`db error: ${e}`)
+        console.error(e)
+        return -1
     }
-    return users
 }
 
 const getUserById = async(id) => {
-    let user = {}
     try {
-        const response = await db.User.findOne({
-            where: {
-                id: id
+        const res = client.user.findUnique({where: {id: id}})
+        return res
+    } catch(e) {
+        logger.error(`sql query err: ${e}`)
+        return null
+    }
+}
+
+const updateUser = async(id, user) => {
+    try {
+        const res  = await client.user.update({
+            where: {id: id},
+            data: {
+                first_name: user.first_name,
+                last_name: user.last_name,
+                email: user.email,
+                chat_id: user.chat_id || null,
+                username: user.username || null,
+                updated_at: new Date()
             }
         })
-        user = response.dataValues ?? response.dataValues
+        return res.id
     } catch(e) {
-        // console.log(e)
+        logger.error(`sql query err: ${e}`)
+        return -1
     }
-    return user
 }
+
+const deleteUser = async(id) => {
+    try {
+        const res = await client.user.delete({where: {id: id}})
+        return res.id
+    } catch(e) {
+        logger.error(`sql query err: ${e}`)
+        return -1
+    }
+}
+
+const listUsers = async() => await client.user.findMany()
+
+const isUserExistByEmail = async (email) => await client.user.count({where: {email: email}}) ? true : false
+
+const isUserExistById = async(id) => await client.user.count({where: {id: id}}) ? true : false
 
 module.exports = {
     listUsers,
-    getUserById
+    getUserById,
+    insertUser,
+    updateUser,
+    deleteUser,
+    isUserExistByEmail,
+    isUserExistById
 }

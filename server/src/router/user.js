@@ -8,12 +8,13 @@ const {
     updateUserController, 
     createUserController
 } = require('../controller/user')
+const validateId = require('../middleware/validateId')
 
 
 userRouter.get('/', listUsersController)
-userRouter.get('/:id', getUserController)
+userRouter.get('/:id', validateId, getUserController)
 userRouter.post('/', createUserController)
-userRouter.delete('/:id', deleteUserController)
-userRouter.put('/:id', updateUserController)
+userRouter.delete('/:id', validateId, deleteUserController)
+userRouter.put('/:id', validateId, updateUserController)
 
 module.exports = userRouter

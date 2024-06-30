@@ -1,5 +1,4 @@
-const { parse } = require("dotenv")
-const { listUsers, getUserById } = require("../repository/user")
+const { listUsers, getUserById, isUserExistById } = require("../repository/user")
 const errors = require("../types/errors")
 
 const listUsersController = async(req, res) => {
@@ -12,20 +11,16 @@ const listUsersController = async(req, res) => {
 }
 
 const getUserController = async(req, res) => {
-    const id = parseInt(req.params.id, 10)
-    if ( isNaN(id) || id < 0) {
-        res.status(errors.INVALID_INPUT.code).json(errors.INVALID_INPUT)
-        return
-    }
-    const user = await getUserById(id)
-    if (Object.keys(user).length == 0) {
-        res.status(errors.NOT_FOUND.code).json(errors.NOT_FOUND)
-        return
-    }
+    const user = await getUserById(parseInt(req.params.id, 10))
     res.status(200).json(user)
 }
 
 const deleteUserController = async(req, res) => {
+    const id = parseInt(req.params.id, 10)
+    if ( isNaN(id) || id < 0 || await isUserExistById(id)) {
+        res.status(errors.INVALID_INPUT.code).json(errors.INVALID_INPUT)
+        return
+    }
     res.status(200).json("Delete user")
 }
 
