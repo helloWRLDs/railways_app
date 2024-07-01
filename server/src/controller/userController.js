@@ -1,4 +1,4 @@
-const { listUsers, getUserById, isUserExistById } = require("../repository/user")
+const { listUsers, getUserById, isUserExistById } = require("../repository/userRepository")
 const errors = require("../types/errors")
 
 const listUsersController = async(req, res) => {

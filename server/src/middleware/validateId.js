@@ -1,7 +1,8 @@
-const { isUserExistById } = require("../repository/user")
+const { isPollExistById } = require("../repository/pollRepository")
+const { isUserExistById } = require("../repository/userRepository")
 const errors = require("../types/errors")
 
-const validateId = async(req, res, next) => {
+const validateUserId = async(req, res, next) => {
     const id = parseInt(req.params.id, 10)
     if (isNaN(id) || id < 0) {
         res.status(errors.INVALID_INPUT.code).json(errors.INVALID_INPUT)
@@ -14,4 +15,19 @@ const validateId = async(req, res, next) => {
     next()
 }
 
-module.exports = validateId
+const validatePollId = async(req, res, next) => {
+    const id = parseInt(req.params.id, 10)
+    if (isNaN(id) || id < 0) {
+        res.status(errors.INVALID_INPUT.code).json(errors.INVALID_INPUT)
+        return
+    }
+    if (!await isPollExistById(id)) {
+        res.status(errors.NOT_FOUND.code).json(errors.NOT_FOUND)
+        return
+    }
+    next()
+}
+
+module.exports = {
+    validatePollId, validateUserId
+}

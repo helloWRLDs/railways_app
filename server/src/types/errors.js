@@ -9,6 +9,11 @@ const errors = {
         code: 404,
         message: "Not Found",
         description: "Resource not found"
+    },
+    INERNAL_ERROR: {
+        code: 500,
+        message: "Internal Server Error",
+        description: "Something went wrong"
     }
 }
 

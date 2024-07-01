@@ -15,7 +15,7 @@ const insertUser = async(newUser) => {
         })
         return res.id
     } catch(e) {
-        console.error(e)
+        logger.error(`sql query err: ${e}`)
         return -1
     }
 }

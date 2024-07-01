@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -28,25 +29,16 @@ model User {
 model Question {
   id          Int  @id @default(autoincrement())
   question    String
-  answer      Answer[]
+  answers     String[]
   response    QuestionResponse[]
 }
 
-model Answer {
-  id            Int   @default(autoincrement())    @id
-  answer        String
-  question_id   Int
-  question      Question @relation(fields: [question_id], references: [id])
-  response      QuestionResponse[]
-}
-
 model QuestionResponse {
-  id            Int      @default(autoincrement())   @id 
+  id            Int         @default(autoincrement())   @id 
   user_id       Int
   user          User?       @relation(fields: [user_id], references: [id])
   question_id   Int
   question      Question?   @relation(fields: [question_id], references: [id])
-  answer_id     Int 
-  answer        Answer      @relation(fields: [answer_id], references: [id])
+  answer        String
   completed_at  DateTime    @default(now())
 }

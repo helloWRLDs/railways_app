@@ -1,5 +1,4 @@
 const express = require('express')
-const userRouter = express.Router()
 
 const {
     listUsersController, 
@@ -7,14 +6,16 @@ const {
     deleteUserController, 
     updateUserController, 
     createUserController
-} = require('../controller/user')
-const validateId = require('../middleware/validateId')
+} = require('../controller/userController')
+const {validateUserId} = require('../middleware/validateId')
 
+
+const userRouter = express.Router()
 
 userRouter.get('/', listUsersController)
-userRouter.get('/:id', validateId, getUserController)
+userRouter.get('/:id', validateUserId, getUserController)
 userRouter.post('/', createUserController)
-userRouter.delete('/:id', validateId, deleteUserController)
-userRouter.put('/:id', validateId, updateUserController)
+userRouter.delete('/:id', validateUserId, deleteUserController)
+userRouter.put('/:id', validateUserId, updateUserController)
 
 module.exports = userRouter
