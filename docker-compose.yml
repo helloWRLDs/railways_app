@@ -32,12 +32,24 @@ services:
       - 8080:8081
     networks:
       - webnet
+
+  frontend:
+    container_name: frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - webnet
   
   bot:
     container_name: bot
     build: 
       context: ./bot
       dockerfile: Dockerfile
+    environment:
+      - POLL_URL=http://server:8080
     networks:
       - webnet
 

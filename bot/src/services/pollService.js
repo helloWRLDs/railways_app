@@ -1,8 +1,7 @@
 import axios from 'axios'
-import dotenv from 'dotenv'
-dotenv.config({path: "../.env"})
+import config from '../config/config.js'
 
-const BASE_API_URL = process.env.POLL_URL
+const BASE_API_URL = config.POLL_URL
 
 export const listPollsService = async() => {
     try {
@@ -12,3 +11,18 @@ export const listPollsService = async() => {
         return null
     }
 }
+
+export const pollKeyboardWithOptions = (options, questionId) => {
+    const result = []
+    for (let i = 0; i < options.length; i++) {
+        result.push([{text: options[i], callback_data: `poll_${questionId}_${i + 1}`}])
+    }
+    return result
+}
+
+// export const pollCallbacks = (poll) => {
+//     const result = {}
+//     for (let i = 0; i < poll.length; i++) {
+//         result[`poll_`]
+//     }
+// }

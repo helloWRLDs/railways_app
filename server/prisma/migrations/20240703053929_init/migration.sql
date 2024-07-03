@@ -35,6 +35,9 @@ CREATE TABLE "QuestionResponse" (
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Question_question_key" ON "Question"("question");
+
 -- AddForeignKey
 ALTER TABLE "QuestionResponse" ADD CONSTRAINT "QuestionResponse_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 

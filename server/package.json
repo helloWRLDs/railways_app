@@ -4,8 +4,12 @@
   "main": "./src/index.js",
   "type": "commonjs",
   "scripts": {
+    "seed": "npx prisma db seed",
     "dev": "nodemon --experimental-specifier-resolution=node ./src/index.js",
     "start": "node --experimental-specifier-resolution=node src/index"
+  },
+  "prisma": {
+    "seed": ["node ./prisma/seed/init_questions.js", "node ./prisma/seed/init_zero-user.js"]
   },
   "author": "",
   "license": "ISC",

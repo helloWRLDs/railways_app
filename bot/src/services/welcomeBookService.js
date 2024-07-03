@@ -1,7 +1,7 @@
 import data from '../../docs/welcome_book.json' assert {type: "json"}
 import { escapeMarkdown } from '../util/formatter.js'
 
-export const getGuideCallbacks = () => {
+export const welcomeBookCallbacks = () => {
     const result = {}
     data.forEach(elem => {
         if (typeof elem.body == "string") {
@@ -13,7 +13,7 @@ export const getGuideCallbacks = () => {
     return result
 }
 
-export const getGuideKeyboard = () => {
+export const getWelcomeBookMesh = () => {
     const result = [];
     for (let i = 0; i < data.length; i += 2) {
         const row = [];
@@ -26,19 +26,3 @@ export const getGuideKeyboard = () => {
     result.push([{text: "❌ Закрыть", callback_data: "close"}])
     return result
 }
-
-export const navButtons = (arr, elem) => {
-    const result = []
-    const id = Object.keys(arr).indexOf(elem)
-    if (id >= 0) {
-        if (id > 0) {
-            result.push({text: "⬅️", callback_data: Object.keys(arr)[id - 1]})
-        }
-        result.push({text: "📋 Home", callback_data: "📋 Home"})
-        if (id + 1 < Object.keys(arr).length) {
-            result.push({text: "➡️", callback_data: Object.keys(arr)[id + 1]})
-        }
-    }
-    return [result]
-}
-

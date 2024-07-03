@@ -1,5 +1,12 @@
 const express = require('express')
-const { listPollsController, getPollController, createPollController, deletePollController, updatePollController } = require('../controller/pollController')
+
+const { 
+    listPollsController, 
+    getPollController, 
+    createPollController, 
+    deletePollController, 
+    updatePollController 
+} = require('../controller/pollController')
 const { validatePollId } = require('../middleware/validateId')
 
 

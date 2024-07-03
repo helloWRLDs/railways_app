@@ -1,10 +1,9 @@
 import TelegramBot from 'node-telegram-bot-api'
-import dotenv from 'dotenv'
 import Handler from './handler.js'
+import config from './config/config.js'
 
-dotenv.config()
 
-const bot = new TelegramBot(process.env.BOT_TOKEN, {polling: true})
+const bot = new TelegramBot(config.BOT_TOKEN, {polling: true})
 const handler = new Handler(bot)
 
 handler.configure()
