@@ -30,6 +30,16 @@ const getUserById = async(id) => {
     }
 }
 
+const getUserByUsername = async(username) => {
+    try{
+        const res = client.user.findFirst({where: {username: username}})
+        return res
+    } catch(e) {
+        logger.error(`sql query err: ${e}`)
+        return null
+    }
+}
+
 const updateUser = async(id, user) => {
     try {
         const res  = await client.user.update({
@@ -73,5 +83,6 @@ module.exports = {
     updateUser,
     deleteUser,
     isUserExistByEmail,
-    isUserExistById
+    isUserExistById,
+    getUserByUsername
 }

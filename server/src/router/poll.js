@@ -5,7 +5,10 @@ const {
     getPollController, 
     createPollController, 
     deletePollController, 
-    updatePollController 
+    updatePollController, 
+    createPollResponseController,
+    getPollResponsesController,
+    listPollResponsesController
 } = require('../controller/pollController')
 const { validatePollId } = require('../middleware/validateId')
 
@@ -17,5 +20,9 @@ pollRouter.get('/', listPollsController)
 pollRouter.post('/', createPollController)
 pollRouter.delete('/:id', validatePollId, deletePollController)
 pollRouter.put('/:id', validatePollId, updatePollController)
+
+pollRouter.get('/responses', listPollResponsesController)
+pollRouter.get('/:id/responses', validatePollId, getPollResponsesController)
+pollRouter.post('/:id/responses', validatePollId, createPollResponseController)
 
 module.exports = pollRouter

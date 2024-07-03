@@ -26,7 +26,7 @@ CREATE TABLE "QuestionResponse" (
     "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
     "question_id" INTEGER NOT NULL,
-    "answer" TEXT NOT NULL,
+    "answer" INTEGER NOT NULL,
     "completed_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "QuestionResponse_pkey" PRIMARY KEY ("id")

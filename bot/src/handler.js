@@ -1,6 +1,6 @@
 import commandsJson from '../docs/commands.json' assert {type: "json"}
 import config from './config/config.js'
-import { listPollsService, pollKeyboardWithOptions } from './services/pollService.js'
+import { listPollsService, pollKeyboardWithOptions, sendPollResponseService } from './services/pollService.js'
 import { getWelcomeBookMesh, welcomeBookCallbacks } from './services/welcomeBookService.js'
 import { getNumber } from './util/getFromString.js'
 import navButtonsMesh from './util/navigationBar.js'
@@ -59,6 +59,7 @@ class Handler {
                     });
                 case '/poll': 
                     const poll = await listPollsService()
+                    console.log(poll)
                     return this._bot.sendMessage(msg.chat.id, poll[0].question, {
                         reply_markup: {inline_keyboard: pollKeyboardWithOptions(poll[0].answers, poll[0].id)},
                         resize_keyboard: true
@@ -95,7 +96,7 @@ class Handler {
             }
             if (ctx.data.startsWith('wb')) {
                 console.log(ctx)
-                await this._bot.editMessageText(this.#wbCallbacks[ctx.data], {
+                return await this._bot.editMessageText(this.#wbCallbacks[ctx.data], {
                     chat_id: ctx.message.chat.id,
                     message_id: ctx.message.message_id,
                     reply_markup: {
@@ -126,9 +127,14 @@ class Handler {
             }
 
             if (ctx.data.startsWith('poll')) {
+                const data = ctx.data.split("_")
+                console.log(data)
+                const poll_id = data[1]
+                const answer_id = data[2]
                 console.log(
-                    `Question: ${ctx.message.text}\nQuestion_id: ${ctx.data.split("_")[1]}\nAnswer_id: ${ctx.data.split("_")[2]}`
+                    `\n\nQuestion: ${ctx.message.text}\nQuestion_id: ${poll_id}\nAnswer_id: ${answer_id}`
                 )
+                await sendPollResponseService(poll_id, answer_id, )
             }
         })
 

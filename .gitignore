@@ -1,6 +1,9 @@
+# folders
 node_modules
 dist
 bot_d
 
+
+# files
 .env
 test.js

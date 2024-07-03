@@ -12,6 +12,16 @@ export const listPollsService = async() => {
     }
 }
 
+export const sendPollResponseService = async(poll_id, answer_id, username) => {
+    try {
+        const res = await axios.post(BASE_API_URL + `/polls/${poll_id}/responses`, {answer: answer_id, username: username})
+        console.log(res.data)
+    } catch(e) {
+        console.error(e)
+        return null
+    }
+}
+
 export const pollKeyboardWithOptions = (options, questionId) => {
     const result = []
     for (let i = 0; i < options.length; i++) {
@@ -20,9 +30,3 @@ export const pollKeyboardWithOptions = (options, questionId) => {
     return result
 }
 
-// export const pollCallbacks = (poll) => {
-//     const result = {}
-//     for (let i = 0; i < poll.length; i++) {
-//         result[`poll_`]
-//     }
-// }
