@@ -41,7 +41,7 @@ const createPollController = async(req, res) => {
     poll.answers = req.body.answers
     const id = await insertPoll(poll)
     if (!id) {
-        res.status(errors.INERNAL_ERROR.code).json(errors.INERNAL_ERROR)
+        res.status(errors.INTERNAL_ERROR.code).json(errors.INTERNAL_ERROR)
         return
     }
     res.status(201).json({code: 201, message: "created poll", id: id})
@@ -50,7 +50,7 @@ const createPollController = async(req, res) => {
 const deletePollController = async(req, res) => {
     const id = await deletePoll(parseInt(req.params.id, 10))
     if (!id) {
-        res.status(errors.INERNAL_ERROR.code).json(errors.INERNAL_ERROR)
+        res.status(errors.INTERNAL_ERROR.code).json(errors.INTERNAL_ERROR)
         return
     }
     res.status(200).json({code: 200, message: "Deleted poll", id: id})
@@ -78,15 +78,16 @@ const updatePollController = async(req, res) => {
     poll.answers = req.body.answers
     const id = await updatePoll(parseInt(req.params.id, 10), poll)
     if (!id) {
-        res.status(errors.INERNAL_ERROR.code).json(errors.INERNAL_ERROR)
+        res.status(errors.INTERNAL_ERROR.code).json(errors.INTERNAL_ERROR)
         return
     }
     res.status(200).json({code: 200, message: "Updated poll", description: `poll_id = ${id}`})
 }
 
+
+
 const getPollResponsesController = async(req, res) => {
     const responses = await getResponsesByPollId(parseInt(req.params.id, 10))
-    console.log(responses)
     if (responses.length < 1) {
         res.status(errors.NOT_FOUND.code).json(errors.NOT_FOUND)
         return
@@ -109,7 +110,7 @@ const createPollResponseController = async(req, res) => {
     }
     const id = await insertPollResponse(pollResponse)
     if (id < 0) {
-        res.status(errors.INERNAL_ERROR.code).json(errors.INERNAL_ERROR)
+        res.status(errors.INTERNAL_ERROR.code).json(errors.INTERNAL_ERROR)
         return
     }
     res.status(201).json({

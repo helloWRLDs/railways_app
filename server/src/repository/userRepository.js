@@ -30,6 +30,16 @@ const getUserById = async(id) => {
     }
 }
 
+const getUserByEmail = async(email) => {
+    try {
+        const res = client.user.findFirst({where: {email: email}})
+        return res
+    } catch(e) {
+        logger.error(`sql query err: ${e}`)
+        return null
+    }
+}
+
 const getUserByUsername = async(username) => {
     try{
         const res = client.user.findFirst({where: {username: username}})
@@ -76,6 +86,8 @@ const isUserExistByEmail = async (email) => await client.user.count({where: {ema
 
 const isUserExistById = async(id) => await client.user.count({where: {id: id}}) ? true : false
 
+const isUserExistByUsername = async(username) => await client.user.count({where: {username: username}}) ? true : false
+
 module.exports = {
     listUsers,
     getUserById,
@@ -84,5 +96,7 @@ module.exports = {
     deleteUser,
     isUserExistByEmail,
     isUserExistById,
-    getUserByUsername
+    getUserByUsername,
+    getUserByEmail,
+    isUserExistByUsername
 }

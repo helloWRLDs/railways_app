@@ -1,5 +1,5 @@
 const { isPollExistById } = require("../repository/pollRepository")
-const { isUserExistById } = require("../repository/userRepository")
+const { isUserExistById, getUserByUsername } = require("../repository/userRepository")
 const errors = require("../types/errors")
 
 const validateUserId = async(req, res, next) => {

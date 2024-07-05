@@ -1,4 +1,5 @@
-const {PrismaClient} = require('@prisma/client')
+const {PrismaClient, Role} = require('@prisma/client')
+const bcrypt = require('bcrypt')
 const client = new PrismaClient()
 
 const main = async() => {
@@ -7,7 +8,9 @@ const main = async() => {
         last_name: "Li",
         email: "danil.li24x@gmail.com",
         username: "lIlllIIIlIIIlIIIl",
-        chat_id: "819151572"
+        password: await bcrypt.hash("12345", 10),
+        chat_id: "819151572",
+        role: Role.ADMIN
     }})
     console.log(res)
 }

@@ -6,12 +6,14 @@ const client = new PrismaClient()
 
 const listPollResponses = async() => {
     const res = await client.$queryRaw`
-        SELECT u.id as user_id, q.question as question, q.answers[qr.answer] as answer 
-        FROM "QuestionResponse" AS qr 
-        INNER JOIN "User" as u 
-        ON u.id = qr.user_id 
-        INNER JOIN "Question" AS q 
-        ON q.id = qr.question_id`
+    SELECT u.id as user_id, u.email as email, q.question as question, q.answers[qr.answer] as answer 
+    FROM "QuestionResponse" AS qr 
+    INNER JOIN "User" as u 
+    ON u.id = qr.user_id 
+    INNER JOIN "Question" AS q 
+    ON q.id = qr.question_id
+    `
+    console.log(res)
     return res
 }
 

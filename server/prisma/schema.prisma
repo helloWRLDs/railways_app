@@ -19,11 +19,14 @@ model User {
   first_name        String
   last_name         String
   email             String  @unique
+  password          String
   chat_id           String?
+  role              Role  @default(EMPLOYEE)
   username          String?
   created_at        DateTime  @default(now())
   updated_at        DateTime  @default(now())
-  question_response QuestionResponse[] 
+  question_response QuestionResponse[]
+  verficiation_codes VerificationCodes?
 }
 
 model Question {
@@ -41,4 +44,19 @@ model QuestionResponse {
   question      Question?   @relation(fields: [question_id], references: [id], onDelete: Cascade)
   answer        Int
   completed_at  DateTime    @default(now())
+}
+
+model VerificationCodes {
+  id Int @default(autoincrement()) @id
+  user_id Int @unique
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  code String
+}
+
+enum Role {
+  ADMIN
+  DEVELOPER
+  MANAGER
+  EMPLOYEE
+  USER
 }

@@ -16,11 +16,6 @@ const getUserController = async(req, res) => {
 }
 
 const deleteUserController = async(req, res) => {
-    const id = parseInt(req.params.id, 10)
-    if ( isNaN(id) || id < 0 || await isUserExistById(id)) {
-        res.status(errors.INVALID_INPUT.code).json(errors.INVALID_INPUT)
-        return
-    }
     res.status(200).json("Delete user")
 }
 

@@ -14,9 +14,5 @@
     {
         "command": "menu",
         "description": "Открыть меню"
-    },
-    {
-        "command": "poll",
-        "description": "Пройти опрос"
     }
 ]

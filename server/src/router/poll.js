@@ -15,13 +15,16 @@ const { validatePollId } = require('../middleware/validateId')
 
 const pollRouter = express.Router()
 
-pollRouter.get('/:id', validatePollId, getPollController)
+pollRouter.get('/responses', listPollResponsesController)
+
 pollRouter.get('/', listPollsController)
 pollRouter.post('/', createPollController)
+
+
+pollRouter.get('/:id', validatePollId, getPollController)
 pollRouter.delete('/:id', validatePollId, deletePollController)
 pollRouter.put('/:id', validatePollId, updatePollController)
 
-pollRouter.get('/responses', listPollResponsesController)
 pollRouter.get('/:id/responses', validatePollId, getPollResponsesController)
 pollRouter.post('/:id/responses', validatePollId, createPollResponseController)
 
