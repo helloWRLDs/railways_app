@@ -97,9 +97,9 @@ class Handler {
                 case '❌ Закрыть меню': 
                     return this.#closeKeyboard(msg)
                 case '✅ Опрос':
-                    if (!(await isAuthenticated(msg.chat.username, msg.chat.id))) {
-                        return this._bot.sendMessage(msg.chat.id, "Убедитесь, что вы авторизованы[/auth]")
-                    }
+                    // if (!(await isAuthenticated(msg.chat.username, msg.chat.id))) {
+                    //     return this._bot.sendMessage(msg.chat.id, "Убедитесь, что вы авторизованы[/auth]")
+                    // }
                     const poll = await listPollsService()
                     console.log(poll)
                     return this._bot.sendMessage(msg.chat.id, poll[0].question, {

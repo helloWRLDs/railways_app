@@ -4,6 +4,7 @@ import config from '../config/config.js'
 const BASE_API_URL = config.POLL_URL
 
 export const listPollsService = async() => {
+    console.log(BASE_API_URL + '/polls')
     try {
         const res = await axios.get(BASE_API_URL + '/polls')
         return res.data
